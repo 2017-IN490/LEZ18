@@ -47,13 +47,13 @@ private	void set(Item<Token> nrow, BigInteger e) {
 		this.entry = e;
 		this.emod = e.mod(Token.TWO).intValue() ;
 		
-		if (nrow == null ) 
+		/*if (nrow == null )
 			{
 				this.ncols = 1;
 				this.rowparity = e.mod(Token.TWO) ;
 			}
 		else
-			{
+			{*/
 				
 				if (this.next()==null)
 					{
@@ -69,7 +69,7 @@ private	void set(Item<Token> nrow, BigInteger e) {
 							this.rowparity = ((Matrix)this.next()).rowparity.add(Token.TWO.pow(this.ncols)) ;
 
 					}
-			}
+			//}
 	}
 	// getters
 	

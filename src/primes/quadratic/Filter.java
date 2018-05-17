@@ -16,7 +16,7 @@ Filter(Item<Token> tail, BigInteger p, Token r) {
 	
 	while(test(r)) {
 		exp = exp.add(BigInteger.ONE);
-		System.out.println("dividing "+r.value2()+" by "+this.value()+"-> exponent "+exp);
+		System.out.println("dividing "+r.value()+" by "+this.value()+"-> exponent "+exp);
 		r.Set(r.value().divide(this.value()));
 		//tok.SetPrimality(false) ;
 	}
@@ -33,10 +33,7 @@ Filter(Item<Token> tail, BigInteger p, Token r) {
 		
 		System.out.println(" reference to next object (2): "+tmp);
 		this.column = new Matrix(tmp , tmp, exp);
-		
 	};
-	
-	
 }
 	
 Filter(Item<Token> tail, BigInteger p) {

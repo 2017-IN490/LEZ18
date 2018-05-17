@@ -57,7 +57,7 @@ private	void set(Item<Token> nrow, BigInteger e) {
 				
 				if (this.next()==null)
 					{
-						this.ncols = 1;
+						this.ncols = 0;
 						this.rowparity = e.mod(Token.TWO) ;
 					}
 				else
@@ -132,12 +132,16 @@ public Item<Token> column () {
  */
 
 public boolean quadratictest() {
-
+	System.out.println("Q:M:quadratictest : rp = "+this.rowparity+" index = "+Token.TWO.pow(this.rows()));
+	System.out.println("...scanning the map");
+	for(Entry<BigInteger, BigInteger> x : Matrix.mappa.entrySet()) {
+		System.out.println(" (k,v) = "+x);
+		Matrix.mappa.put(x.getKey().add(Token.TWO.pow(this.rows())) , x.getValue().xor(this.rowparity)  ) ;
+	}
 	
-	for(Entry<BigInteger, BigInteger> x : Matrix.mappa.entrySet()) Matrix.mappa.put(x.getKey().add(Token.TWO.pow(this.rows())) , x.getValue().xor(this.rowparity)  ) ;
-
 	Matrix.mappa.put(Token.TWO.pow(this.rows()) , this.rowparity  ) ;
-
+	System.out.println("the new map"+Matrix.mappa);
+	
 //	mappa.forEach((k, v) -> { mappa.put(k.add(Token.TWO.pow(this.rows())) , v.xor(this.rowparity)  );
 	
 	return (!Matrix.mappa.containsValue(BigInteger.ZERO));

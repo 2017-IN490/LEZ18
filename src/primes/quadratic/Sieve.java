@@ -28,6 +28,7 @@ public	Sieve (String[] args) {
 public	boolean testloop(Token factortoken) {
 	//BigInteger safenum,candidate,residue ;
 	Token primetoken ;
+	boolean result ;
 	
 	System.out.println("factoring token in testloop:\n residue :"+factortoken.value()+" intero: "+factortoken.value2());
 	
@@ -43,9 +44,10 @@ public	boolean testloop(Token factortoken) {
 	}
 	
 	Sieve.mode = false;
-	System.out.println("Q:S:testloop back to generatig mode, testing quadratic relation ("+((Matrix)((Filter)this.next()).column()).quadratictest()+")");
+	result = ((Matrix)((Filter)this.next()).column()).quadratictest() ;
+	System.out.println("Q:S:testloop back to generatig mode, testing quadratic relation ("+result+")");
 	
-	return ((Matrix)((Filter)this.next()).column()).quadratictest();
+	return result ;
 }
 	
 /**

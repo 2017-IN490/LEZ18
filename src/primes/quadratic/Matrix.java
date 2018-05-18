@@ -6,7 +6,7 @@
 package primes.quadratic ;
 
 import java.math.BigInteger ;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map.Entry;
 
 import primes.Item ;
@@ -19,7 +19,7 @@ private	Item<Token> nextrow ;
 private int ncols;
 private int emod ;
 private BigInteger rowparity ;
-static private HashMap<BigInteger,BigInteger> mappa = new HashMap<BigInteger,BigInteger>();
+static private ConcurrentHashMap<BigInteger,BigInteger> mappa = new ConcurrentHashMap<BigInteger,BigInteger>();
 
 /** Costruttore che inserisce un nuovo elemento <em>e</em>
        nella matrice  che continua con la riga n
@@ -132,15 +132,18 @@ public Item<Token> column () {
  */
 
 public boolean quadratictest() {
+	BigInteger v,k ;
 	System.out.println("Q:M:quadratictest : rp = "+this.rowparity+" index = "+Token.TWO.pow(this.rows()));
 	System.out.println("...scanning the map");
 	for(Entry<BigInteger, BigInteger> x : Matrix.mappa.entrySet()) {
-		System.out.println(" (k,v) = "+x);
-		Matrix.mappa.put(x.getKey().add(Token.TWO.pow(this.rows())) , x.getValue().xor(this.rowparity)  ) ;
+		//System.out.println(" (k,v) = "+x);
+		k = x.getKey().add(Token.TWO.pow(this.rows())) ;
+		v =  x.getValue().xor(this.rowparity);
+		Matrix.mappa.put(v , k ) ;
 	}
 	
 	Matrix.mappa.put(Token.TWO.pow(this.rows()) , this.rowparity  ) ;
-	System.out.println("the new map"+Matrix.mappa);
+//	System.out.println("the new map"+Matrix.mappa);
 	
 //	mappa.forEach((k, v) -> { mappa.put(k.add(Token.TWO.pow(this.rows())) , v.xor(this.rowparity)  );
 	

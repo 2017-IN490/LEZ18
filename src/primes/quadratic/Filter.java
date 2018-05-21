@@ -25,18 +25,18 @@ Filter(Item<Token> tail, BigInteger p, Token r) {
 	try {
 		tmp = ((Filter)tail).column();
 		System.out.println(" reference to next object (step): "+tmp);
-		this.column = new Matrix(tmp , this.setzerocolumn(tmp), exp);
+		this.column = new Matrix(tmp , this.setzerocolumn(tmp), exp, tmp.candidate(), tmp.residue();
 	}
 	catch (ClassCastException e) {
 		
 		tmp = null ;
 		
 		System.out.println(" reference to next object (2): "+tmp);
-		this.column = new Matrix(tmp , tmp, exp);
+		this.column = new Matrix(tmp , tmp, exp, r.candidate(), r.value2() );
 	};
 }
 	
-Filter(Item<Token> tail, BigInteger p) {
+/*Filter(Item<Token> tail, BigInteger p) {
 		super(tail,p) ;
 		
 		Item<Token> tmp;
@@ -49,7 +49,7 @@ Filter(Item<Token> tail, BigInteger p) {
 					System.out.println(" reference to next object (2): "+tmp);
 					this.column = new Matrix(tmp , tmp, BigInteger.ONE);
 				}
-			else*/
+			else
 				try {	
 					tmp = ((Filter)tail).column();
 					System.out.println(" reference to next object (step): "+tmp);
@@ -70,10 +70,13 @@ Filter(Item<Token> tail, BigInteger p) {
 		
 		System.out.println(" fine creazione filtro ");
 	}
+								 */
 
 private Item<Token> setzerocolumn(Item<Token> r) {
 		if (((Matrix)r).column() != null)
-			return (new Matrix(((Matrix)r).column(),this.setzerocolumn(((Matrix)r).column()),BigInteger.ZERO));
+			return (new Matrix(((Matrix)r).column(),this.setzerocolumn(((Matrix)r).column()),BigInteger.ZERO,
+							  ((Matrix)r).column()).candidate(), ((Matrix)r).column()).residue()
+							   ));
 		else
 			return null ;
 	}
@@ -106,12 +109,12 @@ private Token  factorize(Token tok)  {
 		try	{	
 			tmp = ((Filter)this.next()).column();
 			//System.out.println(" reference to next object (step): "+tmp);
-			this.column = new Matrix(tmp , this.column(), exp);
+			this.column = new Matrix(tmp , this.column(), exp, tok.candidate(), tok.value2());
 		}
 		catch (ClassCastException e) {
 	
 			tmp = null ;
-			this.column = new Matrix(tmp , this.column(), exp);
+			this.column = new Matrix(tmp , this.column(), exp, tok.candidate(), tok.value2());
 		};
 
 		

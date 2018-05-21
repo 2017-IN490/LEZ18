@@ -15,11 +15,18 @@ import primes.Bidimensional ;
 
 class Matrix extends Item<Token> implements Bidimensional<Token> {
 private	BigInteger entry ;
+	
+private	BigInteger candidate ;
+private	BigInteger residue ;
+	
 private	Item<Token> nextrow ;
 private int ncols;
 private int emod ;
 private BigInteger rowparity ;
 static private ConcurrentHashMap<BigInteger,BigInteger> mappa = new ConcurrentHashMap<BigInteger,BigInteger>();
+
+	
+	
 
 /** Costruttore che inserisce un nuovo elemento <em>e</em>
        nella matrice  che continua con la riga n
@@ -29,18 +36,25 @@ static private ConcurrentHashMap<BigInteger,BigInteger> mappa = new ConcurrentHa
        @param e il valore intero da inserire nella matrice
     */
 
-	Matrix(Item<Token> n, Item<Token> nrow, BigInteger e) {
+	Matrix(Item<Token> n, Item<Token> nrow, BigInteger e, BigInteger c, BigInteger r) {
 		super(n) ;
 		
 		//System.out.println("constructing Matrix object: next = "+n+" column = "+nrow+" entry = "+e);
 		
-		this.set(nrow, e);
+		this.set(nrow, e, c, r);
 	}
        
  /** Metodo setter che prende 
        @param nrow la prossima riga della matrice 
        @param e    valore da immettere
     */
+private	void set(Item<Token> nrow, BigInteger e, BigInteger c, BigInteger r) {
+	set(nrow, e);
+	this.candidate = c ;
+	this.residue = r;
+	
+}
+	
 private	void set(Item<Token> nrow, BigInteger e) {
 		System.out.println("Q:M:set assigning exponent "+e);
 		this.nextrow = nrow;
@@ -100,6 +114,13 @@ public BigInteger value() {
 	return this.entry;
      } 
 
+	public BigInteger candidate() {
+		return this.candidate;
+	}
+	public BigInteger residue() {
+		return this.residue;
+	}
+	
 /** implementazione di un metodo di stampa di una riga 
  * 	della matrice
  */
@@ -137,17 +158,17 @@ public boolean quadratictest() {
 	System.out.println("...scanning the map");
 	for(Entry<BigInteger, BigInteger> x : Matrix.mappa.entrySet()) {
 		//System.out.println(" (k,v) = "+x);
-		k = x.getKey().add(Token.TWO.pow(this.rows())) ;
-		v =  x.getValue().xor(this.rowparity);
-		Matrix.mappa.put(v , k ) ;
+		v =  x.getValue().add(Token.TWO.pow(this.rows())) ;
+		k =  x.getKey().xor(this.rowparity);
+		Matrix.mappa.put(k , v) ;
 	}
 	
-	Matrix.mappa.put(Token.TWO.pow(this.rows()) , this.rowparity  ) ;
+	Matrix.mappa.put( this.rowparity, Token.TWO.pow(this.rows())  ) ;
 //	System.out.println("the new map"+Matrix.mappa);
 	
 //	mappa.forEach((k, v) -> { mappa.put(k.add(Token.TWO.pow(this.rows())) , v.xor(this.rowparity)  );
 	
-	return (!Matrix.mappa.containsValue(BigInteger.ZERO));
+	return (!Matrix.mappa.containsKey(BigInteger.ZERO));
 }
 
 void printmap() {
@@ -159,4 +180,27 @@ void printrowparity() {
 	if (this.column()!=null) ((Matrix)this.column()).printrowparity() ;
 }
 
+public QuadraticRelation extractquadraticrelation() {
+		BigInteger epsilon0 ;
+		QuadraticRelation tmp;
+	
+		epsilon0 = this.mappa.getValue(BigInteger.ZERO);
+		if ( this.nextrow() != null )
+				if (epsilon0.divide(Token.TWO.pow(this.rows())).mod(Token.TWO).compareTo(BigInteger.ONE)==0)
+					{
+						tmp=this.column.extractquadratic();
+						return tmp.Set(tmp.value1().multiply(this.candidate()) , tmp.value2().multiply(this.residue()));
+					else
+						return this.column.extractquadratic();
+			else
+				if (epsilon0.mod(Token.TWO).compareTo(BigInteger.ONE)
+						 return new QuadraticRelation(this.candidate(), this.residue());
+					else
+						 return new QuadraticRelation(BigInteger.ONE, BigInteger.ONE);
+		
+		
+		
+		
+	}
+	
 }

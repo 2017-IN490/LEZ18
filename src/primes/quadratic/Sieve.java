@@ -72,10 +72,13 @@ public	boolean testloop(Token factortoken) {
 			
 		}
 		
-		System.out.println("in Q:S:mailoop after while : ready to new S:get()");
-		factoringtoken = this.next().get() ;
+		
+		
+		
+		//System.out.println("in Q:S:mailoop after while : ready to new S:get()");
+		//factoringtoken = this.next().get() ;
 			
-		System.out.println("in Q:S:mailoop new integer : "+factoringtoken.value2()+" "+factoringtoken.value());
+		//System.out.println("in Q:S:mailoop new integer : "+factoringtoken.value2()+" "+factoringtoken.value());
 		
 	}
 	

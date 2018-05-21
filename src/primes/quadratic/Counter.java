@@ -72,8 +72,15 @@ public Token get() {
 }
 
 BigInteger setroot() {
+	BigInteger si;
 	this.root = this.root.add(BigInteger.ONE);
-	return this.root.multiply(this.root).mod(this.factoring);
+	si = this.root.multiply(this.root).mod(this.factoring);
+	while(si.compareTo(BigInteger.ZERO)==0){
+		this.root = this.root.add(BigInteger.ONE);
+		si = this.root.multiply(this.root).mod(this.factoring);
+	}
+	
+	return si;
 	
 }
 

@@ -72,17 +72,6 @@ public	boolean testloop(Token factortoken) {
 			
 		}
 		
-		
-		// testloop nel caso di primality false controlla se il residuo del token e' 1
-		//  se non e' uno allora genero nuovi filtri = set primality a true 
-//while rango della matrice minore numero di righe		
-		
-		//se il residuo del token = 1 allora aggiungo la riga 
-		// e faccio un nuovo get (sempre con primality a false)
-		
-		// altrimenti se il residuo del token non e' 1
-			// setprimality(true)
-		
 		System.out.println("in Q:S:mailoop after while : ready to new S:get()");
 		factoringtoken = this.next().get() ;
 			
@@ -93,7 +82,7 @@ public	boolean testloop(Token factortoken) {
 	public void printmatrix() {
 		/* bisogna essere sicuri che si ha un Filter o un Matrix */
 		((Filter)this.next()).column().print() ;
-		((Matrix)((Filter)this.next()).column()).printmap() ;
+		//((Matrix)((Filter)this.next()).column()).printmap() ;
 		((Matrix)((Filter)this.next()).column()).printrowparity() ;
 	}
 

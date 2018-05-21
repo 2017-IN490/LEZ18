@@ -57,6 +57,7 @@ public	boolean testloop(Token factortoken) {
  */
 	public void mainloop() {
 		Token factoringtoken ;
+		QuadraticRelation qr ;
 		
 		
 //		factoringtoken.SetPrimality(Sieve.mode);
@@ -72,7 +73,8 @@ public	boolean testloop(Token factortoken) {
 			
 		}
 		
-		
+		qr = ((Filter)this.next()).column().extractquadraticrelation();
+		Sytem.out.println("a = "+qr.value1()+" b = "+qr.value2());
 		
 		
 		//System.out.println("in Q:S:mailoop after while : ready to new S:get()");

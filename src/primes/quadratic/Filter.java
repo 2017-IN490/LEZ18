@@ -25,7 +25,7 @@ Filter(Item<Token> tail, BigInteger p, Token r) {
 	try {
 		tmp = ((Filter)tail).column();
 		System.out.println(" reference to next object (step): "+tmp);
-		this.column = new Matrix(tmp , this.setzerocolumn(tmp), exp, tmp.candidate(), tmp.residue();
+		this.column = new Matrix(tmp , this.setzerocolumn(tmp), exp, ((Matrix) tmp).candidate(), ((Matrix)tmp).residue());
 	}
 	catch (ClassCastException e) {
 		
@@ -75,8 +75,7 @@ Filter(Item<Token> tail, BigInteger p, Token r) {
 private Item<Token> setzerocolumn(Item<Token> r) {
 		if (((Matrix)r).column() != null)
 			return (new Matrix(((Matrix)r).column(),this.setzerocolumn(((Matrix)r).column()),BigInteger.ZERO,
-							  ((Matrix)r).column()).candidate(), ((Matrix)r).column()).residue()
-							   ));
+							  ((Matrix)r).column().candidate(), ((Matrix)r).column().residue());
 		else
 			return null ;
 	}
